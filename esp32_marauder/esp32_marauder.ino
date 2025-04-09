@@ -338,6 +338,10 @@ void setup()
   
   Serial.println(F("CLI Ready"));
   cli_obj.RunSetup();
+
+  display_obj.tft.setTextColor(TFT_WHITE, TFT_BLACK);
+  display_obj.tft.drawCentreString("Welcome! :)", TFT_WIDTH/2, TFT_HEIGHT * 0.82, 1);
+  
 }
 
 
