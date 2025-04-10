@@ -21,8 +21,32 @@ https://www.online-utility.org/image/convert/to/XBM
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "esp_system.h"
-#include <Arduino.h>
-#include <>
+
+#include <TFT_eSPI.h>
+#include <SPI.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_ILI9341.h>
+
+// TFT pin definitions (adjust based on your wiring)
+#define TFT_CS    17  // Chip select pin
+#define TFT_DC    16  // Data/command pin
+#define TFT_RST    5  // Reset pin (or set to -1 if connected to ESP32 RESET)
+
+// Button pin definition (active LOW)
+#define BUTTON_PIN 2
+
+// Initialize the display
+Adafruit_ILI9341 tft = Adafruit_ILI9341(TFT_CS, TFT_DC, TFT_RST);
+
+// Lines of text to display inside the rectangle
+const char* lines[] = {
+  "BATTERY MONITOR",
+  "Battery Percentage : 100%",
+  "Battery Voltage : 4.2V",
+  "Charging Status : ACTIVE"
+};
+const uint8_t numLines = sizeof(lines) / sizeof(lines[0]);
+
 
 #ifdef HAS_GPS
   #include "GpsInterface.h"
@@ -342,6 +366,14 @@ void setup()
 
   display_obj.tft.setTextColor(TFT_WHITE, TFT_BLACK);
   display_obj.tft.drawCentreString("Welcome! :)", TFT_WIDTH/2, TFT_HEIGHT * 0.82, 1);
+
+    // Initialize button pin as input with internal pull-up resistor
+  pinMode(BUTTON_PIN, INPUT_PULLUP);
+
+  // Initialize display
+  tft.begin();
+  tft.setRotation(0);  // Portrait mode; adjust if needed
+  tft.fillScreen(ILI9341_BLACK);
   
 }
 
