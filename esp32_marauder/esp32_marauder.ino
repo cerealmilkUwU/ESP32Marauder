@@ -22,6 +22,7 @@ https://www.online-utility.org/image/convert/to/XBM
 #include "freertos/task.h"
 #include "esp_system.h"
 #include <Arduino.h>
+#include <>
 
 #ifdef HAS_GPS
   #include "GpsInterface.h"
@@ -416,4 +417,14 @@ void loop()
   #else
     delay(50);
   #endif
+
+  if ( pbat = HIGH )
+  {
+    
+  }
+  else
+  {
+    
+  }
+    
 }
